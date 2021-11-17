@@ -10,6 +10,9 @@ export class ProductListComponent implements OnInit {
   @Input()
   products: Product[] = [];
   isShowCreatedForm = false;
+  isShowEditedForm = false;
+  title = 'Hello'
+  index = -1;
 
   constructor() {
   }
@@ -23,5 +26,14 @@ export class ProductListComponent implements OnInit {
 
   addNewProduct(product) {
     this.products.push(product);
+  }
+
+  showEditForm(i: number) {
+    this.isShowEditedForm = !this.isShowEditedForm;
+    this.index = i;
+  }
+
+  editProduct(product) {
+    this.products[this.index] = product;
   }
 }

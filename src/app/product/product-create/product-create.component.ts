@@ -9,7 +9,7 @@ import {Product} from '../../product';
 export class ProductCreateComponent implements OnInit {
   @Input()
   title: string = 'Product create form';
-  product: Product = {};
+  // product: Product = {};
   @Output()
   eventEmitter: EventEmitter<Product> = new EventEmitter<Product>();
 
@@ -19,8 +19,9 @@ export class ProductCreateComponent implements OnInit {
   ngOnInit() {
   }
 
-  submit() {
-    this.eventEmitter.emit(this.product);
+  submit(productForm) {
+    this.eventEmitter.emit(productForm.value);
+    productForm.resetForm();
   }
 
 }

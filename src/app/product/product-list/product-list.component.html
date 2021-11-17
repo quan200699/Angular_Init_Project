@@ -1,17 +1,23 @@
 <h1>ProductList</h1>
 <button (click)="changeStatus()">
-  <span>{{isShowCreatedForm ? 'Hide' : 'Create'}}</span>
+  <span>
+    {{isShowCreatedForm ? 'Hide' : 'Create'}}
+  </span>
 </button>
 <table>
   <tr>
     <td>#</td>
     <td>Id</td>
     <td>Name</td>
+    <td>Edit</td>
   </tr>
   <tr *ngFor="let product of products; index as i">
     <td>{{i + 1}}</td>
     <td>{{product.id}}</td>
     <td>{{product.name}}</td>
+    <td><button (click)="showEditForm(i)">Edit</button></td>
   </tr>
 </table>
-<app-product-create (eventEmitter)="addNewProduct($event)" [title]="'Tao moi san pham'" *ngIf="isShowCreatedForm"></app-product-create>
+<!--<app-product-create (eventEmitter)="addNewProduct($event)" title="{{title}}" *ngIf="isShowCreatedForm"></app-product-create>-->
+<app-product-create (eventEmitter)="addNewProduct($event)" [title]="title" *ngIf="isShowCreatedForm"></app-product-create>
+<app-product-edit (eventEmitter)="editProduct($event)" [product]="products[index]" *ngIf="isShowEditedForm"></app-product-edit>

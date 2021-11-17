@@ -1,17 +1,13 @@
-<h1>{{title}}</h1>
-<form #createProductForm="ngForm" (ngSubmit)="createProductForm.valid && submit(createProductForm)">
-  <p *ngIf="createProductForm.invalid">Form nhap chua dung</p>
+<form [formGroup]="editProductForm" (ngSubmit)="editProductForm.valid && editProduct()">
   <table>
     <tr>
       <td>Id:</td>
-      <td><input type="text" ngModel name="id"></td>
+      <td><input type="text" formControlName="id"></td>
     </tr>
     <tr>
       <td>Name</td>
       <td>
-        <input type="text" required #name="ngModel"
-                 name="name"
-                 ngModel>
+        <input type="text" formControlName="name">
         <ng-container *ngIf="
         name.invalid && name.dirty">
           <p *ngIf="name.errors?.required">ten bat buoc phai nhap</p>
