@@ -1,9 +1,4 @@
 <h1>ProductList</h1>
-<button (click)="changeStatus()">
-  <span>
-    {{isShowCreatedForm ? 'Hide' : 'Create'}}
-  </span>
-</button>
 <table>
   <tr>
     <td>#</td>
@@ -15,9 +10,7 @@
     <td>{{i + 1}}</td>
     <td>{{product.id}}</td>
     <td>{{product.name}}</td>
-    <td><button (click)="showEditForm(i)">Edit</button></td>
+    <td><a routerLink="/products/edit/{{i}}">Edit</a></td>
+    <td><a [routerLink]="['/products/delete', i]">Delete</a></td>
   </tr>
 </table>
-<!--<app-product-create (eventEmitter)="addNewProduct($event)" title="{{title}}" *ngIf="isShowCreatedForm"></app-product-create>-->
-<app-product-create (eventEmitter)="addNewProduct($event)" [title]="title" *ngIf="isShowCreatedForm"></app-product-create>
-<app-product-edit (eventEmitter)="editProduct($event)" [product]="products[index]" *ngIf="isShowEditedForm"></app-product-edit>

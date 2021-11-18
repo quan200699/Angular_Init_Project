@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Product} from '../../product';
+import {ProductService} from '../../service/product.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-create',
@@ -7,21 +9,18 @@ import {Product} from '../../product';
   styleUrls: ['./product-create.component.css']
 })
 export class ProductCreateComponent implements OnInit {
-  @Input()
-  title: string = 'Product create form';
-  // product: Product = {};
-  @Output()
-  eventEmitter: EventEmitter<Product> = new EventEmitter<Product>();
-
-  constructor() {
+  constructor(private productService: ProductService,
+              private router: Router) {
   }
 
   ngOnInit() {
   }
 
   submit(productForm) {
-    this.eventEmitter.emit(productForm.value);
+    this.productService.create(productForm.value);
     productForm.resetForm();
+    // this.router.navigate(['/products']);
+    this.router.navigateByUrl('/products')
   }
 
 }

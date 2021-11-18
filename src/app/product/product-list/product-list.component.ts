@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Product} from '../../product';
+import {ProductService} from '../../service/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -7,33 +8,12 @@ import {Product} from '../../product';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  @Input()
   products: Product[] = [];
-  isShowCreatedForm = false;
-  isShowEditedForm = false;
-  title = 'Hello'
-  index = -1;
 
-  constructor() {
+  constructor(private productService: ProductService) {
   }
 
   ngOnInit() {
-  }
-
-  changeStatus() {
-    this.isShowCreatedForm = !this.isShowCreatedForm;
-  }
-
-  addNewProduct(product) {
-    this.products.push(product);
-  }
-
-  showEditForm(i: number) {
-    this.isShowEditedForm = !this.isShowEditedForm;
-    this.index = i;
-  }
-
-  editProduct(product) {
-    this.products[this.index] = product;
+    this.products = this.productService.getAll();
   }
 }

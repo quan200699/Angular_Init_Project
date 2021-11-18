@@ -7,10 +7,11 @@ import { ProductListComponent } from './product/product-list/product-list.compon
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
+import { ProductDeleteComponent } from './product/product-delete/product-delete.component';
 
 @NgModule({
   declarations: [ //Để khai báo các component đang được sử dụng trong module này
-    AppComponent, ProductListComponent, ProductCreateComponent, ProductEditComponent
+    AppComponent, ProductListComponent, ProductCreateComponent, ProductEditComponent, ProductDeleteComponent
   ],
   imports: [ //Để khai báo các module đang muốn sử dụng
     BrowserModule,

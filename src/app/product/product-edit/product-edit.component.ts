@@ -1,6 +1,8 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Product} from '../../product';
+import {ProductService} from '../../service/product.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-product-edit',
@@ -12,22 +14,25 @@ export class ProductEditComponent implements OnInit {
     id: new FormControl('0'),
     name: new FormControl('', Validators.required)
   });
-  @Output()
-  eventEmitter: EventEmitter<Product> = new EventEmitter<Product>();
-  @Input()
   product: Product = {};
-  constructor() { }
-
-  ngOnInit() {
-    this.editProductForm = new FormGroup({
-      id: new FormControl(this.product.id),
-      name: new FormControl(this.product.name, Validators.required)
+  id: number;
+  constructor(private productService: ProductService,
+              private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.paramMap.subscribe(paramMap => {
+      this.id = +paramMap.get('id');
+      this.product = this.productService.getById(this.id);
+      this.editProductForm = new FormGroup({
+        id: new FormControl(this.product.id),
+        name: new FormControl(this.product.name, Validators.required)
+      })
     })
   }
 
+  ngOnInit() {
+  }
+
   editProduct() {
-    this.eventEmitter.emit(this.editProductForm.value);
-    this.editProductForm.reset();
+    this.productService.edit(this.id, this.editProductForm.value)
   }
 
   get name(){
