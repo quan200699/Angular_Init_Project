@@ -17,7 +17,9 @@ export class ProductDeleteComponent implements OnInit {
               private router: Router) {
     this.activatedRoute.paramMap.subscribe(paramMap => {
       this.id = +paramMap.get('id');
-      this.product = this.productService.getById(this.id);
+      this.productService.getById(this.id).subscribe(product => {
+        this.product = product;
+      });
     });
   }
 
@@ -25,8 +27,9 @@ export class ProductDeleteComponent implements OnInit {
   }
 
   delete() {
-    this.productService.delete(this.id);
-    this.router.navigateByUrl('/products');
+    this.productService.delete(this.id).subscribe(() => {
+      this.router.navigateByUrl('/products');
+    });
   }
 
 }

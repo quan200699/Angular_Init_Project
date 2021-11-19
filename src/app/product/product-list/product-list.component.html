@@ -10,7 +10,7 @@
     <td>{{i + 1}}</td>
     <td>{{product.id}}</td>
     <td>{{product.name}}</td>
-    <td><a routerLink="/products/edit/{{i}}">Edit</a></td>
-    <td><a [routerLink]="['/products/delete', i]">Delete</a></td>
+    <td><a routerLink="/products/edit/{{product.id}}">Edit</a></td>
+    <td><a [routerLink]="['/products/delete', product.id]">Delete</a></td>
   </tr>
 </table>

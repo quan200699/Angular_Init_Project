@@ -20,11 +20,13 @@ export class ProductEditComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe(paramMap => {
       this.id = +paramMap.get('id');
-      this.product = this.productService.getById(this.id);
-      this.editProductForm = new FormGroup({
-        id: new FormControl(this.product.id),
-        name: new FormControl(this.product.name, Validators.required)
-      })
+      this.productService.getById(this.id).subscribe(product => {
+        this.product = product;
+        this.editProductForm = new FormGroup({
+          id: new FormControl(this.product.id),
+          name: new FormControl(this.product.name, Validators.required)
+        })
+      });
     })
   }
 
@@ -32,7 +34,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   editProduct() {
-    this.productService.edit(this.id, this.editProductForm.value)
+    this.productService.edit(this.id, this.editProductForm.value).subscribe();
   }
 
   get name(){

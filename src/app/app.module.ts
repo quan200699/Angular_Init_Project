@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ProductCreateComponent } from './product/product-create/product-create.component';
 import { ProductEditComponent } from './product/product-edit/product-edit.component';
 import { ProductDeleteComponent } from './product/product-delete/product-delete.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [ //Để khai báo các component đang được sử dụng trong module này
@@ -17,7 +18,8 @@ import { ProductDeleteComponent } from './product/product-delete/product-delete.
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   exports: [], //export module cho module khác sử dụng
   providers: [],

@@ -17,10 +17,12 @@ export class ProductCreateComponent implements OnInit {
   }
 
   submit(productForm) {
-    this.productService.create(productForm.value);
-    productForm.resetForm();
-    // this.router.navigate(['/products']);
-    this.router.navigateByUrl('/products')
+    this.productService.create(productForm.value).subscribe(() => {
+      productForm.resetForm();
+      this.router.navigateByUrl('/products')
+    }, error => {
+      alert("loi roi");
+    });
   }
 
 }
