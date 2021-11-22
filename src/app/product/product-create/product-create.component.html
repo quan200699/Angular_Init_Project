@@ -18,6 +18,15 @@
       </td>
     </tr>
     <tr>
+      <td>Category</td>
+      <td>
+        <select name="category" id="category" ngModel>
+          <option value="" disabled>Select category</option>
+          <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
       <td></td>
       <td><button>Submit</button></td>
     </tr>

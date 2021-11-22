@@ -1,8 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Product} from '../../product';
-import {ProductService} from '../../service/product.service';
+import {Product} from '../../model/product';
+import {ProductService} from '../../service/product/product.service';
 import {ActivatedRoute} from '@angular/router';
+import {CategoryService} from '../../service/category/category.service';
+import {Category} from '../../model/category';
 
 @Component({
   selector: 'app-product-edit',
@@ -12,11 +14,14 @@ import {ActivatedRoute} from '@angular/router';
 export class ProductEditComponent implements OnInit {
   editProductForm: FormGroup = new FormGroup({
     id: new FormControl('0'),
-    name: new FormControl('', Validators.required)
+    name: new FormControl('', Validators.required),
+    category: new FormControl()
   });
   product: Product = {};
   id: number;
+  categories: Category[] = [];
   constructor(private productService: ProductService,
+              private categoryService: CategoryService,
               private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe(paramMap => {
       this.id = +paramMap.get('id');
@@ -24,17 +29,29 @@ export class ProductEditComponent implements OnInit {
         this.product = product;
         this.editProductForm = new FormGroup({
           id: new FormControl(this.product.id),
-          name: new FormControl(this.product.name, Validators.required)
+          name: new FormControl(this.product.name, Validators.required),
+          category: new FormControl(this.product.category.id)
         })
       });
     })
   }
 
   ngOnInit() {
+    this.getAllCategories();
+  }
+
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe(data => {
+      this.categories = data;
+    }, error => console.log(error));
   }
 
   editProduct() {
-    this.productService.edit(this.id, this.editProductForm.value).subscribe();
+    let product = this.editProductForm.value;
+    product.category = {
+      id: product.category
+    }
+    this.productService.edit(this.id, product).subscribe();
   }
 
   get name(){

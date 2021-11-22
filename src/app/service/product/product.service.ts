@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Product} from '../product';
+import {Product} from '../../model/product';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {API_URL, PRODUCT} from '../../url-constant';
 
 @Injectable({
   providedIn: 'root'
@@ -11,22 +12,22 @@ export class ProductService {
   }
 
   getAll(): Observable<Product[]> {
-    return this.http.get<Product[]>('http://localhost:8080/products');
+    return this.http.get<Product[]>(`${API_URL}/${PRODUCT}`);
   }
 
   getById(id: number): Observable<Product> {
-    return this.http.get<Product>(`http://localhost:8080/products/${id}`);
+    return this.http.get<Product>(`${API_URL}/${PRODUCT}/${id}`);
   }
 
   create(product: Product): Observable<Product> {
-    return this.http.post<Product>('http://localhost:8080/products', product);
+    return this.http.post<Product>(`${API_URL}/${PRODUCT}`, product);
   }
 
   edit(id: number, product: Product): Observable<Product> {
-    return this.http.put<Product>(`http://localhost:8080/products/${id}`, product);
+    return this.http.put<Product>(`${API_URL}/${PRODUCT}/${id}`, product);
   }
 
   delete(id: number): Observable<Product> {
-    return this.http.delete(`http://localhost:8080/products/${id}`);
+    return this.http.delete(`${API_URL}/${PRODUCT}/${id}`);
   }
 }

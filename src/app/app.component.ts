@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {Product} from './product';
+import {Product} from './model/product';
 
 @Component({
   selector: 'app-quan', //selector để gọi bên html
